@@ -42,6 +42,39 @@ public class memberdao {
 		}
 		return dao;
 	}
+	public membervo allselect2(String userid)
+	{
+		String sql="select * from members where id=?";
+		conn= null;
+		pstmt=null;
+		rs=null;
+		System.out.println(userid);
+		membervo vo=null;
+		try {
+			
+			conn=ds.getConnection();
+			System.out.println(conn+"접속완료 로그인");
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			System.out.println(pstmt+"로그인");
+			
+			rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+				 vo=new membervo(rs.getString("id"),rs.getString("name"),rs.getString("pwd"),rs.getString("email"),rs.getTimestamp("created"));
+		
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+	
+		}
+		return vo;
+	}
 	public ArrayList<membervo> allselect(String userid)
 	{
 		String sql="select * from members where id=?";

@@ -89,6 +89,11 @@ public class frontcontroller extends HttpServlet {
 		else if(uri.equals("/test/write.do"))
 		{
 			System.out.println("글쓰기 입장");
+	
+			
+			HttpSession session = request.getSession(); 
+			session.getAttribute("uid");//받아올때도 똑같다!
+	
 			viewpage="wirte.jsp";
 		}
 		else if(uri.equals("/test/writeprocess.do"))

@@ -13,12 +13,20 @@
 <title>Insert title here</title>
 </head>
 <body>
+request<br>
 	<c:forEach var="arr2" items="${arrays2}">
 	${arr2.getUserid() }
 	${arr2.getUsername() }
 	${arr2.getUseremail() }
 	${arr2.getUsercreated() }
 	</c:forEach>
+	<br>
+session<br>
+	${uid }
+	${uname }
+	${uemail }
+	${ucreated }
+	<br>
 <a href="/test/write.do">글쓰기</a>
 <br>
 <table>
