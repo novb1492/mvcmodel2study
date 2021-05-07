@@ -25,7 +25,7 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("getï¿½ï¿½Ã»");
+		System.out.println("get¿äÃ»");
 		dorequest(request,response);
 	}
 
@@ -33,14 +33,14 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("postï¿½ï¿½Ã»");
+		System.out.println("post¿äÃ»");
 		dorequest(request,response);
 	}
 	
 
 	private void dorequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
-		System.out.println("dorequestï¿½ï¿½ï¿½ï¿½");
+		System.out.println("dorequestµé¾î¿È");
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -52,7 +52,7 @@ public class frontcontroller extends HttpServlet {
 
 		if(uri.equals("/test/ge.do"))
 		{
-			System.out.println("ï¿½ï¿½;ï¿½ï¿½");
+			System.out.println("°Ô½ÃÆÇÀÔÀå");
 			ArrayList<boardvo>array=dao.getborad();
 			request.setAttribute("arrays", array);
 			viewpage="board_list.jsp";
@@ -60,12 +60,12 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/write.do"))
 		{
-			System.out.println("ï¿½Ìµï¿½");
+			System.out.println("±Û¾²±â ÀÔÀå");
 			viewpage="wirte.jsp";
 		}
 		else if(uri.equals("/test/writeprocess.do"))
 		{
-			System.out.println("ï¿½Ô½Ã±Ûµï¿½ï¿½");
+			System.out.println("±ÛÀÛ¼º¿Ï·á");
 			
 			String bname=request.getParameter("bname");
 			String btitle=request.getParameter("btitle");
@@ -78,13 +78,13 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/content.do"))
 		{
-			System.out.println("ã„´ã…‡");
+			System.out.println("°Ô½Ã±Û ´©¸§");
 			//request.getParameter("id");
 			dao.getarticle(request.getParameter("id"));
 			
 			viewpage="content.jsp";
 		}
-		//forwardï¿½Ï´Â¹ï¿½
+		//forward´Â ÀÌ·¸°Ô
 		RequestDispatcher dp=request.getRequestDispatcher(viewpage);
 		dp.forward(request, response);
 		

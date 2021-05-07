@@ -49,7 +49,7 @@ public class boarddao {
 		try {
 			
 			conn=ds.getConnection();//�����ͺ��̽� ����
-			System.out.println(conn+"접속완"+"update2");
+			System.out.println(conn);
 
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
@@ -61,7 +61,7 @@ public class boarddao {
 			boardvo vo=new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));
 			array.add(vo);
 			}		
-			System.out.println(array.get(0)+"�Խñ� �迭�� �ֱ� �");
+			System.out.println(array.get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,7 +81,7 @@ public class boarddao {
 		try {
 			
 			conn=ds.getConnection();//�����ͺ��̽� ����
-			System.out.println(conn+"접속완"+"update2");
+			System.out.println(conn);
 
 			pstmt=conn.prepareStatement(sql);
 			System.out.println(pstmt);
@@ -92,7 +92,7 @@ public class boarddao {
 				boardvo article= new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));
 				array.add(article);
 			}
-			System.out.println(array.get(0)+"�Խñ� �迭�� �ֱ� �");
+			System.out.println(array.get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -112,7 +112,7 @@ public class boarddao {
 		try {
 			
 			conn=ds.getConnection();//�����ͺ��̽� ����
-			System.out.println(conn+"���ӿϷ�"+"update2");
+			System.out.println(conn);
 
 			pstmt=conn.prepareStatement(sql);
 	
@@ -125,11 +125,11 @@ public class boarddao {
 			System.out.println(i+"check");
 			if(i==1)
 			{
-				System.out.println("����");
+				System.out.println("sucess");
 			}
 			else
 			{
-				System.out.println("����");
+				System.out.println("fail");
 			}	
 						
 			
