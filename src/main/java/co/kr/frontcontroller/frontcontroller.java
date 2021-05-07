@@ -1,16 +1,26 @@
 package co.kr.frontcontroller;
 
+
+
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.mysql.cj.Session;
+
 import co.kr.model.boarddao;
 import co.kr.model.boardvo;
+import co.kr.service.boardlistservice;
+import co.kr.service.boardservice;
+import co.kr.service.boardwriteservice;
+import co.kr.service.viewservice;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import co.kr.member.*;
 
 
 @WebServlet("*.do")///ï¿½ï¿½ï¿½Æ³ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½ï¿½Ö´ï¿½ 20210506
@@ -44,17 +54,35 @@ public class frontcontroller extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		
 		String uri=request.getRequestURI();
 		String viewpage=null;
-		
-		boarddao dao=boarddao.getinstance();
+		boardservice sv=null;
 
-		if(uri.equals("/test/ge.do"))
+		if(uri.equals("/test/login.do"))
+		{
+			viewpage="login.jsp";
+		}
+		else if(uri.equals("/test/loginprocess.do"))
+		{
+			memberdao dao=memberdao.getinstance();
+			int check=dao.login(request.getParameter("id"),request.getParameter("pwd"));
+			System.out.println(check+"failorsuc");
+			request.setAttribute("id",request.getParameter("id"));
+			if(check==1)
+			{
+			viewpage="ge.do";
+			}
+			else
+			{
+				viewpage="login.do";
+			}
+		}
+	
+		else if(uri.equals("/test/ge.do"))
 		{
 			System.out.println("°Ô½ÃÆÇÀÔÀå");
-			ArrayList<boardvo>array=dao.getborad();
-			request.setAttribute("arrays", array);
+			sv=new boardlistservice();
+			sv.execute(request, response);
 			viewpage="board_list.jsp";
 			
 		}
@@ -67,21 +95,16 @@ public class frontcontroller extends HttpServlet {
 		{
 			System.out.println("±ÛÀÛ¼º¿Ï·á");
 			
-			String bname=request.getParameter("bname");
-			String btitle=request.getParameter("btitle");
-			String bcontent=request.getParameter("bcontent");
-			
-			dao.insert(bname, btitle, bcontent);
-			
+			sv=new boardwriteservice();
+			sv.execute(request, response);			
 			viewpage="ge.do";
 			
 		}
 		else if(uri.equals("/test/content.do"))
 		{
 			System.out.println("°Ô½Ã±Û ´©¸§");
-			//request.getParameter("id");
-			dao.getarticle(request.getParameter("id"));
-			
+			sv=new viewservice();
+			sv.execute(request, response);
 			viewpage="content.jsp";
 		}
 		//forward´Â ÀÌ·¸°Ô

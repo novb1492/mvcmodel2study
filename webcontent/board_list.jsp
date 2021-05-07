@@ -5,6 +5,7 @@
 <%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><!-- 형식 맞출때 쓰느 -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:forEach var="arr2" items="${arrays2}">
+	${arr2.getUserid() }
+	${arr2.getUsername() }
+	${arr2.getUseremail() }
+	${arr2.getUsercreated() }
+	</c:forEach>
 <a href="/test/write.do">글쓰기</a>
 <br>
 <table>

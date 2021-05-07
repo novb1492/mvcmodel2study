@@ -18,7 +18,7 @@ public class boarddao {
 	private DataSource ds;
 	private Connection conn;
 	private PreparedStatement pstmt;
-	
+	private	ResultSet rs;
 	private boarddao()
 	{
 		try{
@@ -40,10 +40,12 @@ public class boarddao {
 		}
 		return dao;
 	}
-	public ArrayList<boardvo> getarticle(String id)
+	
+	public boardvo getarticle(String id)
 	{
-		ArrayList<boardvo> array=new ArrayList<boardvo>();
+		uphit(id);
 		
+		boardvo vo=null;
 		String sql="select *from board where id=?";
 		
 		try {
@@ -55,13 +57,41 @@ public class boarddao {
 			pstmt.setString(1, id);
 			System.out.println(pstmt);
 			
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			if(rs.next())
 			{
-			boardvo vo=new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));
-			array.add(vo);
+			vo=new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));		
 			}		
-			System.out.println(array.get(0));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			utill.close(conn);
+			utill.close(pstmt);
+			utill.close(rs);
+		}
+		
+		return vo;
+	}
+	private void uphit(String id) {
+		
+		String sql="update board set hit=hit+1 where id=?";
+		
+
+		try {
+			
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,  id);
+			System.out.println(pstmt);
+			
+			int i=pstmt.executeUpdate();
+			check(i);
+		
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -69,8 +99,6 @@ public class boarddao {
 			utill.close(conn);
 			utill.close(pstmt);
 		}
-		
-		return array;
 	}
 	public ArrayList<boardvo> getborad()
 	{
@@ -85,7 +113,7 @@ public class boarddao {
 
 			pstmt=conn.prepareStatement(sql);
 			System.out.println(pstmt);
-			ResultSet rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();
 			
 			while(rs.next())
 			{
@@ -120,17 +148,9 @@ public class boarddao {
 			pstmt.setString(2,btitle);
 			pstmt.setString(3,bcontent);
 			System.out.println(pstmt);
-			int i=pstmt.executeUpdate();
 			
-			System.out.println(i+"check");
-			if(i==1)
-			{
-				System.out.println("sucess");
-			}
-			else
-			{
-				System.out.println("fail");
-			}	
+			int i=pstmt.executeUpdate();
+			check(i);
 						
 			
 		} catch (Exception e) {
@@ -141,5 +161,17 @@ public class boarddao {
 			utill.close(pstmt);
 		}
 		
+	}
+	private void check(int i) {
+		
+		System.out.println(i+"check");	
+		if(i==1)
+		{
+			System.out.println("sucess");
+		}
+		else
+		{
+			System.out.println("fail");
+		}	
 	}
 }
