@@ -85,6 +85,7 @@ public class frontcontroller extends HttpServlet {
 			viewpage="content.jsp";
 		}
 		//forward는 이렇게
+		//원래  이름이 test였음 그래서 깃허브 다운로드 되면서 mvcmodel2 폴더로 바뀜 그래서 test로 해야함
 		RequestDispatcher dp=request.getRequestDispatcher(viewpage);
 		dp.forward(request, response);
 		
