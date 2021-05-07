@@ -22,7 +22,7 @@ public class boarddao {
 	private boarddao()
 	{
 		try{
-			Context ct = new InitialContext();///context.xmlÀĞ±â À§ÇÑ
+			Context ct = new InitialContext();///context.xmlï¿½Ğ±ï¿½ ï¿½ï¿½ï¿½ï¿½
 			ds=(DataSource)ct.lookup("java:comp/env/jdbc/mysql2");
 		}
 		catch(Exception e)
@@ -40,6 +40,38 @@ public class boarddao {
 		}
 		return dao;
 	}
+	public ArrayList<boardvo> getarticle(String id)
+	{
+		ArrayList<boardvo> array=new ArrayList<boardvo>();
+		
+		String sql="select *from board where id=?";
+		
+		try {
+			
+			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println(conn+"ì ‘ì†ì™„"+"update2");
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			System.out.println(pstmt);
+			
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+			boardvo vo=new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));
+			array.add(vo);
+			}		
+			System.out.println(array.get(0)+"ï¿½Ô½Ã±ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			utill.close(conn);
+			utill.close(pstmt);
+		}
+		
+		return array;
+	}
 	public ArrayList<boardvo> getborad()
 	{
 		ArrayList<boardvo> array=new ArrayList<>();
@@ -48,8 +80,8 @@ public class boarddao {
 		
 		try {
 			
-			conn=ds.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-			System.out.println(conn+"Á¢¼Ó¿Ï·á"+"update2");
+			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println(conn+"ì ‘ì†ì™„"+"update2");
 
 			pstmt=conn.prepareStatement(sql);
 			System.out.println(pstmt);
@@ -60,7 +92,7 @@ public class boarddao {
 				boardvo article= new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));
 				array.add(article);
 			}
-			System.out.println(array.get(0)+"°Ô½Ã±Û ¹è¿­¿¡ ³Ö±â ¿Ï·á");
+			System.out.println(array.get(0)+"ï¿½Ô½Ã±ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,14 +106,16 @@ public class boarddao {
 	}
 	public void insert(String bname,String btitle,String bcontent)
 	{
+		
 		System.out.println(btitle+"title");
 		String sql="insert into board(name,title,content)values(?,?,?)";
 		try {
 			
-			conn=ds.getConnection();//µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-			System.out.println(conn+"Á¢¼Ó¿Ï·á"+"update2");
+			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println(conn+"ï¿½ï¿½ï¿½Ó¿Ï·ï¿½"+"update2");
 
 			pstmt=conn.prepareStatement(sql);
+	
 			pstmt.setString(1,bname);
 			pstmt.setString(2,btitle);
 			pstmt.setString(3,bcontent);
@@ -91,11 +125,11 @@ public class boarddao {
 			System.out.println(i+"check");
 			if(i==1)
 			{
-				System.out.println("¼º°ø");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½");
 			}
 			else
 			{
-				System.out.println("½ÇÆĞ");
+				System.out.println("ï¿½ï¿½ï¿½ï¿½");
 			}	
 						
 			

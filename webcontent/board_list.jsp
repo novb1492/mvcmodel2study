@@ -4,7 +4,7 @@
     pageEncoding="UTF-8"%>
 <%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><!-- 형식 맞출때 쓰느 -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@
 							<tr>
 							<td>${arr.getBid()}</td>
 							<td>${arr.getBname()}</td>
-							<td>${arr.getBtitle()}</td>
+							<td><a href="/test/content.do?id=${arr.getBid()}">${arr.getBtitle()}</a></td>
 							<td>${arr.getBdate()}</td>
 							<td>${arr.getBhit()}</td>
 							</tr>

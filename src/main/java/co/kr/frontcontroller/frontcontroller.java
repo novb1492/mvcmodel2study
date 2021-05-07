@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-@WebServlet("*.do")///¹ÌÃÆ³× ÀÌ·¸°Ô °¡Áö°í ¿Ã¼öÀÖ´Ù 20210506
+@WebServlet("*.do")///ï¿½ï¿½ï¿½Æ³ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½ï¿½Ö´ï¿½ 20210506
 public class frontcontroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("get¿äÃ»");
+		System.out.println("getï¿½ï¿½Ã»");
 		dorequest(request,response);
 	}
 
@@ -33,14 +33,14 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("post¿äÃ»");
+		System.out.println("postï¿½ï¿½Ã»");
 		dorequest(request,response);
 	}
 	
 
 	private void dorequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
-		System.out.println("dorequestÀÔÀå");
+		System.out.println("dorequestï¿½ï¿½ï¿½ï¿½");
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -52,7 +52,7 @@ public class frontcontroller extends HttpServlet {
 
 		if(uri.equals("/test/ge.do"))
 		{
-			System.out.println("ÀÌ;µ¿");
+			System.out.println("ï¿½ï¿½;ï¿½ï¿½");
 			ArrayList<boardvo>array=dao.getborad();
 			request.setAttribute("arrays", array);
 			viewpage="board_list.jsp";
@@ -60,12 +60,12 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/write.do"))
 		{
-			System.out.println("ÀÌµ¿");
+			System.out.println("ï¿½Ìµï¿½");
 			viewpage="wirte.jsp";
 		}
 		else if(uri.equals("/test/writeprocess.do"))
 		{
-			System.out.println("°Ô½Ã±Ûµî·Ï");
+			System.out.println("ï¿½Ô½Ã±Ûµï¿½ï¿½");
 			
 			String bname=request.getParameter("bname");
 			String btitle=request.getParameter("btitle");
@@ -76,7 +76,15 @@ public class frontcontroller extends HttpServlet {
 			viewpage="ge.do";
 			
 		}
-		//forwardÇÏ´Â¹ý
+		else if(uri.equals("/test/content.do"))
+		{
+			System.out.println("ã„´ã…‡");
+			//request.getParameter("id");
+			dao.getarticle(request.getParameter("id"));
+			
+			viewpage="content.jsp";
+		}
+		//forwardï¿½Ï´Â¹ï¿½
 		RequestDispatcher dp=request.getRequestDispatcher(viewpage);
 		dp.forward(request, response);
 		
