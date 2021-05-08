@@ -87,7 +87,7 @@ public class frontcontroller extends HttpServlet {
 		{
 			ac= new singupservice();
 			ac.execute2(request, response);
-			viewpage="/test/login.do";
+			viewpage="login.do";
 		}
 		else if(uri.equals("/test/ge.do"))
 		{
