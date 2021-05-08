@@ -21,6 +21,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import co.kr.member.*;
+import co.kr.memberservice.imemberservice;
+import co.kr.memberservice.loginservice;
 
 
 @WebServlet("*.do")///ï¿½ï¿½ï¿½Æ³ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã¼ï¿½ï¿½Ö´ï¿½ 20210506
@@ -35,7 +37,7 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("get¿äÃ»");
+		System.out.println("getï¿½ï¿½Ã»");
 		dorequest(request,response);
 	}
 
@@ -43,44 +45,48 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("post¿äÃ»");
+		System.out.println("postï¿½ï¿½Ã»");
 		dorequest(request,response);
 	}
 	
 
 	private void dorequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
-		System.out.println("dorequestµé¾î¿È");
+		System.out.println("dorequestï¿½ï¿½ï¿½ï¿½");
 		
 		request.setCharacterEncoding("utf-8");
 		
 		String uri=request.getRequestURI();
 		String viewpage=null;
 		boardservice sv=null;
-
+		imemberservice ac=null;
+		
 		if(uri.equals("/test/login.do"))
 		{
 			viewpage="login.jsp";
 		}
 		else if(uri.equals("/test/loginprocess.do"))
 		{
-			memberdao dao=memberdao.getinstance();
-			int check=dao.login(request.getParameter("id"),request.getParameter("pwd"));
-			System.out.println(check+"failorsuc");
-			request.setAttribute("id",request.getParameter("id"));
+			ac=new loginservice();
+			int check=ac.execute(request, response);
 			if(check==1)
 			{
-			viewpage="ge.do";
+
+				ac.execute2(request, response); //set session 	
+				viewpage="ge.do";
 			}
 			else
 			{
 				viewpage="login.do";
 			}
 		}
-	
+		else if(uri.equals("/test/singup.do"))
+		{
+			viewpage="singup.jsp";
+		}
 		else if(uri.equals("/test/ge.do"))
 		{
-			System.out.println("°Ô½ÃÆÇÀÔÀå");
+			System.out.println("ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			sv=new boardlistservice();
 			sv.execute(request, response);
 			viewpage="board_list.jsp";
@@ -88,17 +94,12 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/write.do"))
 		{
-			System.out.println("±Û¾²±â ÀÔÀå");
-	
-			
-			HttpSession session = request.getSession(); 
-			session.getAttribute("uid");//¹Þ¾Æ¿Ã¶§µµ ¶È°°´Ù!
-	
+			System.out.println("ï¿½Û¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");	
 			viewpage="wirte.jsp";
 		}
 		else if(uri.equals("/test/writeprocess.do"))
 		{
-			System.out.println("±ÛÀÛ¼º¿Ï·á");
+			System.out.println("ï¿½ï¿½ï¿½Û¼ï¿½ï¿½Ï·ï¿½");
 			
 			sv=new boardwriteservice();
 			sv.execute(request, response);			
@@ -107,13 +108,14 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/content.do"))
 		{
-			System.out.println("°Ô½Ã±Û ´©¸§");
+			System.out.println("ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			sv=new viewservice();
 			sv.execute(request, response);
+		
 			viewpage="content.jsp";
 		}
-		//forward´Â ÀÌ·¸°Ô
-		//¿ø·¡  ÀÌ¸§ÀÌ test¿´À½ ±×·¡¼­ ±êÇãºê ´Ù¿î·Îµå µÇ¸é¼­ mvcmodel2 Æú´õ·Î ¹Ù²ñ ±×·¡¼­ test·Î ÇØ¾ßÇÔ
+		//forwardï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½  ï¿½Ì¸ï¿½ï¿½ï¿½ testï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ ï¿½Ç¸é¼­ mvcmodel2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ï¿½ ï¿½×·ï¿½ï¿½ï¿½ testï¿½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½
 		RequestDispatcher dp=request.getRequestDispatcher(viewpage);
 		dp.forward(request, response);
 		

@@ -22,16 +22,16 @@ public class boardlistservice implements boardservice {
 		memberdao dao2=memberdao.getinstance();
 		ArrayList<membervo>array2=dao2.allselect(request.getParameter("id"));
 		
-		memberdao dao3=memberdao.getinstance();
+		/*memberdao dao3=memberdao.getinstance();
 		membervo vo=dao3.allselect2(request.getParameter("id"));
 		
-		HttpSession session = request.getSession(); // ¼¼¼Ç ¹Þ¾Æ¿È ÀÌ°Ô ²ÀÇÊ¿äÇÏ´Ù mvc2¿¡¼­´Â ÈÞ¿ì..±Ý¹æ Ã£Àº°Å°°´Ù ¤Ð¤Ð20210507
+		HttpSession session = request.getSession(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½Ï´ï¿½ mvc2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¿ï¿½..ï¿½Ý¹ï¿½ Ã£ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ ï¿½Ð¤ï¿½20210507
 		session.setAttribute("uid",vo.getUserid()); 
 		session.setAttribute("uname",vo.getUsername()); 
 		session.setAttribute("uemail",vo.getUseremail()); 
-		session.setAttribute("ucreated",vo.getUsercreated()); 
+		session.setAttribute("ucreated",vo.getUsercreated()); */
 		// 
 		request.setAttribute("arrays2", array2);
-		request.setAttribute("arrays", array);//±×·¡ ÀÌ·¸°Ô ³ª´²Áà¾ßÁö ¾È±×·¯¸é Å«ÀÏ³¯µí20210507
+		request.setAttribute("arrays", array);//ï¿½×·ï¿½ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È±×·ï¿½ï¿½ï¿½ Å«ï¿½Ï³ï¿½ï¿½ï¿½20210507
 	}
 }
