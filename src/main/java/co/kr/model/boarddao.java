@@ -1,16 +1,13 @@
 package co.kr.model;
 
+import co.kr.member.close;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import co.kr.utill.utill;
-
 
 
 public class boarddao {
@@ -19,6 +16,8 @@ public class boarddao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private	ResultSet rs;
+	private close c= new close();
+	
 	private boarddao()
 	{
 		try{
@@ -67,9 +66,9 @@ public class boarddao {
 			e.printStackTrace();
 		}
 		finally {
-			utill.close(conn);
-			utill.close(pstmt);
-			utill.close(rs);
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
 		}
 		
 		return vo;
@@ -96,8 +95,8 @@ public class boarddao {
 			e.printStackTrace();
 		}
 		finally {
-			utill.close(conn);
-			utill.close(pstmt);
+			c.closesql(conn);
+			c.closesql(pstmt);
 		}
 	}
 	public ArrayList<boardvo> getborad()
@@ -125,8 +124,9 @@ public class boarddao {
 			e.printStackTrace();
 		}
 		finally {
-			utill.close(conn);
-			utill.close(pstmt);
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
 		}
 
 		return array;
@@ -157,8 +157,8 @@ public class boarddao {
 			e.printStackTrace();
 		}
 		finally {
-			utill.close(conn);
-			utill.close(pstmt);
+			c.closesql(conn);
+			c.closesql(pstmt);
 		}
 		
 	}
