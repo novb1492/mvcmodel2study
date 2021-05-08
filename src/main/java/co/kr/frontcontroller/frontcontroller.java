@@ -21,8 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import co.kr.member.*;
-import co.kr.memberservice.imemberservice;
-import co.kr.memberservice.loginservice;
+import co.kr.memberservice.*;
 
 
 @WebServlet("*.do")///���Ƴ� �̷��� ������ �ü��ִ� 20210506
@@ -83,6 +82,12 @@ public class frontcontroller extends HttpServlet {
 		else if(uri.equals("/test/singup.do"))
 		{
 			viewpage="singup.jsp";
+		}
+		else if(uri.equals("/test/singupprocess.do"))
+		{
+			ac= new singupservice();
+			ac.execute2(request, response);
+			viewpage="/test/login.do";
 		}
 		else if(uri.equals("/test/ge.do"))
 		{
