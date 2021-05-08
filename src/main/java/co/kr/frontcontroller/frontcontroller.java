@@ -24,7 +24,7 @@ import co.kr.member.*;
 import co.kr.memberservice.*;
 
 
-@WebServlet("*.do")///���Ƴ� �̷��� ������ �ü��ִ� 20210506
+@WebServlet("*.do")///占쏙옙占싣놂옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占시쇽옙占쌍댐옙 20210506
 public class frontcontroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("get��û");
+		System.out.println("get占쏙옙청");
 		dorequest(request,response);
 	}
 
@@ -44,14 +44,14 @@ public class frontcontroller extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		System.out.println("post��û");
+		System.out.println("post占쏙옙청");
 		dorequest(request,response);
 	}
 	
 
 	private void dorequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		
-		System.out.println("dorequest����");
+		System.out.println("dorequest占쏙옙占쏙옙");
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -86,12 +86,19 @@ public class frontcontroller extends HttpServlet {
 		else if(uri.equals("/test/singupprocess.do"))
 		{
 			ac= new singupservice();
-			ac.execute2(request, response);
+			int check=ac.execute(request, response);
+			if(check==1)
+			{
 			viewpage="login.do";
+			}
+			else
+			{
+				viewpage="singup.do";
+			}
 		}
 		else if(uri.equals("/test/ge.do"))
 		{
-			System.out.println("�Խ�������");
+			System.out.println("占쌉쏙옙占쏙옙占쏙옙占쏙옙");
 			sv=new boardlistservice();
 			sv.execute(request, response);
 			viewpage="board_list.jsp";
@@ -99,12 +106,12 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/write.do"))
 		{
-			System.out.println("�۾��� ����");	
+			System.out.println("占쌜억옙占쏙옙 占쏙옙占쏙옙");	
 			viewpage="wirte.jsp";
 		}
 		else if(uri.equals("/test/writeprocess.do"))
 		{
-			System.out.println("���ۼ��Ϸ�");
+			System.out.println("占쏙옙占쌜쇽옙占싹뤄옙");
 			
 			sv=new boardwriteservice();
 			sv.execute(request, response);			
@@ -113,17 +120,18 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/content.do"))
 		{
-			System.out.println("�Խñ� ����");
+			System.out.println("占쌉시깍옙 占쏙옙占쏙옙");
 			sv=new viewservice();
 			sv.execute(request, response);
 		
 			viewpage="content.jsp";
 		}
-		//forward�� �̷���
-		//����  �̸��� test���� �׷��� ����� �ٿ�ε� �Ǹ鼭 mvcmodel2 ������ �ٲ� �׷��� test�� �ؾ���
+		//forward占쏙옙 占싱뤄옙占쏙옙
+		//占쏙옙占쏙옙  占싱몌옙占쏙옙 test占쏙옙占쏙옙 占쌓뤄옙占쏙옙 占쏙옙占쏙옙占� 占쌕울옙琯占� 占실면서 mvcmodel2 占쏙옙占쏙옙占쏙옙 占쌕뀐옙 占쌓뤄옙占쏙옙 test占쏙옙 占쌔억옙占쏙옙
 		RequestDispatcher dp=request.getRequestDispatcher(viewpage);
 		dp.forward(request, response);
 		
 	}
+
 
 }

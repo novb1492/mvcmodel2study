@@ -9,9 +9,9 @@
 <body>
 <form action="/test/singupprocess.do">
 id:<input type="text" name="id" placeholder="id"><br>
-name:<input type="text" name="name" placeholder="name"><br>
 pwd:<input type="password" name="pwd"><br>
-email:<input type="email" name="name" placeholder="email"><br>
+name:<input type="text" name="name" placeholder="name"><br>
+email:<input type="email" name="email" placeholder="email"><br>
 <input type="submit" value="done">
 </form>
 </body>

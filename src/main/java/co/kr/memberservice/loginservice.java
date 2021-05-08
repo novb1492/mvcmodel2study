@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class loginservice implements imemberservice {
+public class loginservice implements imemberservice  {
 	
 	public int execute(HttpServletRequest request,HttpServletResponse response) {
 		

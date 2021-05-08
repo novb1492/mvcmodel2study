@@ -1,5 +1,6 @@
 package co.kr.memberservice;
 
+import co.kr.member.memberdao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -9,10 +10,9 @@ public class singupservice implements imemberservice {
 	public int execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		System.out.println("intosingup");
-		
-		String sql="insert into members(id,name,pwd,email)values(?,?,?,?)";
-		
-		return 0;
+		memberdao dao=memberdao.getinstance();
+		int check=dao.singup(request.getParameter("id"),request.getParameter("pwd"),request.getParameter("name"),request.getParameter("email"));
+		return check;
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public class memberdao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private	ResultSet rs;
-	
+	private close c=new close();
 	private memberdao()
 	{
 		try{
@@ -42,12 +42,38 @@ public class memberdao {
 		}
 		return dao;
 	}
+	public int singup(String id,String pwd ,String name ,String email)
+	{
+		String sql="insert into members(id,pwd,name,email)values(?,?,?,?)";
+		
+		int check=0;
+		try {
+			
+			conn=ds.getConnection();
+			System.out.println(conn+"접속완료 로그인");
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, email);
+			System.out.println(pstmt+"로그인");
+		
+			check=pstmt.executeUpdate();	
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+		}
+		return check;
+	}
 	public membervo allselect2(String userid)
 	{
 		String sql="select * from members where id=?";
-		conn= null;
-		pstmt=null;
-		rs=null;
+
 		System.out.println(userid);
 		membervo vo=null;
 		try {
@@ -71,7 +97,9 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-	
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
 		}
 		return vo;
 	}
@@ -104,7 +132,8 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-	
+			c.closesql(conn);
+			c.closesql(pstmt);
 		}
 		return array;
 	}
@@ -148,7 +177,9 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-	
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
 		}
 		return check;
 	}
