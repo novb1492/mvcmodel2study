@@ -23,7 +23,7 @@ public class pasingservice {
 		this.firstRow = startRow;
 		this.endRow = endRow;
 
-		calculatePageTotalCount();
+		this.calculatePageTotalCount();
 	}
 	
 	//珥� �럹�씠吏� �닔瑜� 怨꾩궛�븯�뒗 硫붿꽌�뱶

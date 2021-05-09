@@ -3,6 +3,7 @@
         <%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><!-- 형식 맞출때 쓰느 -->
+<%@ include file="home.jspf" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,5 +44,8 @@ session<br>
 					<a href="ge.do?page=${pagenum}">${pagenum}</a> 
 					</c:forEach> 
 					&nbsp;<a href="#">>></a>
+					<form action="/test/search.do">
+검색 <input type="text" name="title" placeholder="제목을 입력해주세요"><input type="submit" value="검색">
+</form>
 </body>
 </html>
