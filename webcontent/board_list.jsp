@@ -37,7 +37,7 @@ session<br>
 							<th>작성일</th>
 							<th>조회수</th>
 							</tr>
-							<c:forEach var="arr" items="${arrays}">
+							<c:forEach var="arr" items="${array.getMessageList()}">
 							<tr>
 							<td>${arr.getBid()}</td>
 							<td>${arr.getBname()}</td>
@@ -47,6 +47,13 @@ session<br>
 							</tr>
 							</c:forEach>
 					</table>
+					<br>
+					<a href="#"><<</a> &nbsp; 
+					<c:forEach var="pagenum" begin="1" end="${array.getMessageTotalCount()}">
+					<a href="ge.do?page=${pagenum}">${pagenum}</a> 
+					</c:forEach> 
+					&nbsp;<a href="#">>></a>
+					
 					<br>
 <form action="/test/search.do">
 검색 <input type="text" name="title" placeholder="제목을 입력해주세요"><input type="submit" value="검색">

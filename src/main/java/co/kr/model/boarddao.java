@@ -40,6 +40,34 @@ public class boarddao {
 		return dao;
 	}
 	
+	public int selecttotalcount()
+	{
+		String sql="select count(*) from board";
+		int n=0;
+		try {	
+			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			System.out.println(pstmt);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			n=rs.getInt(1);///¿­ÀÇ µ¥ÀÌÅÍ °¡Á®¿À´Â¹ýÀÌ³× »ý°¢º¸´Ù sqlµµ º¹ÀâÇÏ±¸³ª
+			System.out.println("totalboard"+rs.getInt(1));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
+		}
+
+		
+		return n;
+	}
 	public ArrayList<boardvo> search(String title)
 	{
 		ArrayList<boardvo> array=new ArrayList<boardvo>();
@@ -131,11 +159,11 @@ public class boarddao {
 			c.closesql(pstmt);
 		}
 	}
-	public ArrayList<boardvo> getborad()
+	public ArrayList<boardvo> getborad(int fistrow,int endrow)
 	{
 		ArrayList<boardvo> array=new ArrayList<>();
 		
-		String sql="select *from board order by id desc";
+		String sql="select *from board order by id desc limit ?,?";
 		
 		try {
 			
@@ -143,6 +171,8 @@ public class boarddao {
 			System.out.println(conn);
 
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, fistrow-1);
+			pstmt.setInt(2, endrow-fistrow+1);
 			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 			

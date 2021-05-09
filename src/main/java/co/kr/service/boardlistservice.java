@@ -14,15 +14,40 @@ import jakarta.servlet.http.HttpSession;
 public class boardlistservice implements boardservice {
 
 	
+	private static final int messagecount=5;
+	
 	public void execute(HttpServletRequest request,HttpServletResponse response)
 	{
+		String strpage=request.getParameter("page");
+		int currentpage=1;
+		if(strpage!=null)
+		{
+			currentpage=Integer.parseInt(strpage);
+		}
+		pasingservice articles=getboardariticle(currentpage);	
+		request.setAttribute("array", articles);//占쌓뤄옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占싫그뤄옙占쏙옙 큰占싹놂옙占쏙옙20210507
+	}
+	private pasingservice getboardariticle(int currentpagenum)
+	{
+		pasingservice articles=null;
 		boarddao dao=boarddao.getinstance();
-		ArrayList<boardvo>array=dao.getborad();
+		int totalboard=dao.selecttotalcount();
 		
-		memberdao dao2=memberdao.getinstance();
-		ArrayList<membervo>array2=dao2.allselect(request.getParameter("id"));
+		ArrayList<boardvo>array=null;
+		int firstrow=0,endrow=0;
 		
-		request.setAttribute("arrays2", array2);
-		request.setAttribute("arrays", array);//�׷� �̷��� ��������� �ȱ׷��� ū�ϳ���20210507
+		if(totalboard>0)
+		{
+			firstrow=(currentpagenum-1)*messagecount+1;
+			endrow=firstrow+messagecount-1;
+			array=dao.getborad(firstrow, endrow);
+		}
+		else
+		{
+			currentpagenum=0;
+		}
+		articles=new pasingservice(array,  totalboard, currentpagenum,  messagecount, firstrow, endrow);
+		
+		return articles;
 	}
 }
