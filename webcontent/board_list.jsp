@@ -49,7 +49,7 @@ session<br>
 					</table>
 					<br>
 					<a href="#"><<</a> &nbsp; 
-					<c:forEach var="pagenum" begin="1" end="${array.getMessageTotalCount()}">
+					<c:forEach var="pagenum" begin="1" end="${array.getPageTotalCount()}">
 					<a href="ge.do?page=${pagenum}">${pagenum}</a> 
 					</c:forEach> 
 					&nbsp;<a href="#">>></a>

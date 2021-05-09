@@ -35,6 +35,7 @@ public class pasingservice {
 		else 
 		{
 			this.pageTotalCount = this.messageTotalCount / this.messageCountPerPage;
+			
 			if (this.messageTotalCount % this.messageCountPerPage > 0) 
 			{
 				this.pageTotalCount++;

@@ -61,6 +61,7 @@ public class frontcontroller extends HttpServlet {
 		boardservice sv=null;
 		imemberservice ac=null;
 		
+		System.out.println("uri"+uri);
 		if(uri.equals("/test/login.do"))
 		{
 			viewpage="login.jsp";
