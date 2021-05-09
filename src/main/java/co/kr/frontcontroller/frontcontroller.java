@@ -28,7 +28,7 @@ import co.kr.memberservice.*;
 @WebServlet("*.do")///占쏙옙占싣놂옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙 占시쇽옙占쌍댐옙 20210506
 public class frontcontroller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private String[] uri2=new String[2];
 
     public frontcontroller() {
        super();
@@ -88,14 +88,9 @@ public class frontcontroller extends HttpServlet {
 		{
 			ac= new singupservice();
 			int check=ac.execute(request, response);
-			if(check==1)
-			{
-			viewpage="login.do";
-			}
-			else
-			{
-				viewpage="singup.do";
-			}
+			uri2[0]="login.do";
+			uri2[1]="singup.do";
+			viewpage=ch(check, uri2);
 		}
 		else if(uri.equals("/test/ge.do"))
 		{
@@ -138,6 +133,20 @@ public class frontcontroller extends HttpServlet {
 		dp.forward(request, response);
 		
 	}
+	private String ch (int check,String[] uri2) {
+		
+		String u=null;
+		if(check==1)
+		{
+			u=uri2[0];
+		}
+		else
+		{
+			u=uri2[1];
+		}
+		return u;
+	}
+	
 
 
 }
