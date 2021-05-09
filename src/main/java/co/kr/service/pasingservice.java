@@ -28,49 +28,49 @@ public class pasingservice {
 	
 	//珥� �럹�씠吏� �닔瑜� 怨꾩궛�븯�뒗 硫붿꽌�뱶
 	private void calculatePageTotalCount() {
-		if (messageTotalCount == 0) 
+		if (this.messageTotalCount == 0) 
 		{
-			pageTotalCount = 0;
+			this.pageTotalCount = 0;
 		} 
 		else 
 		{
-			pageTotalCount = messageTotalCount / messageCountPerPage;
-			if (messageTotalCount % messageCountPerPage > 0) 
+			this.pageTotalCount = this.messageTotalCount / this.messageCountPerPage;
+			if (this.messageTotalCount % this.messageCountPerPage > 0) 
 			{
-				pageTotalCount++;
+				this.pageTotalCount++;
 			}
 		}
 	}
 
 	public int getMessageTotalCount() {
-		return messageTotalCount;
+		return this.messageTotalCount;
 	}
 
 	public int getCurrentPageNumber() {
-		return currentPageNumber;
+		return this.currentPageNumber;
 	}
 
 	public ArrayList<boardvo> getMessageList() {
-		return messageList;
+		return this.messageList;
 	}
 
 	public int getPageTotalCount() {
-		return pageTotalCount;
+		return this.pageTotalCount;
 	}
 
 	public int getMessageCountPerPage() {
-		return messageCountPerPage;
+		return this.messageCountPerPage;
 	}
 
 	public int getFirstRow() {
-		return firstRow;
+		return this.firstRow;
 	}
 
 	public int getEndRow() {
-		return endRow;
+		return this.endRow;
 	}
 
 	public boolean isEmpty() {
-		return messageTotalCount == 0;
+		return this.messageTotalCount == 0;
 	}
 }
