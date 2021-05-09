@@ -13,10 +13,11 @@ public class searchservice implements boardservice {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		boarddao dao= boarddao.getinstance();
-		
-		ArrayList<boardvo>array=dao.search(request.getParameter("title"));
-		request.setAttribute("array", array);
-
+		if(request.getParameter("title")!="")//blank search 
+		{
+			ArrayList<boardvo>array=dao.search(request.getParameter("title"));
+			request.setAttribute("array", array);
+		}
 	}
 
 }
