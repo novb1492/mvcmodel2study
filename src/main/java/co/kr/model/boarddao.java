@@ -40,6 +40,34 @@ public class boarddao {
 		return dao;
 	}
 	
+	public int selecttotalcount(String title)
+	{
+		String sql="select count(*) from board where title like ?";
+		int n=0;
+		try {	
+			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, '%'+title+'%');
+			System.out.println(pstmt);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			n=rs.getInt(1);///¿­ÀÇ µ¥ÀÌÅÍ °¡Á®¿À´Â¹ýÀÌ³× »ý°¢º¸´Ù sqlµµ º¹ÀâÇÏ±¸³ª
+			System.out.println("totalboard"+rs.getInt(1));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
+		}
+
+		return n;
+	}
 	public int selecttotalcount()
 	{
 		String sql="select count(*) from board";
@@ -68,11 +96,11 @@ public class boarddao {
 		
 		return n;
 	}
-	public ArrayList<boardvo> search(String title)
+	public ArrayList<boardvo> search(String title,int firstrow,int endrow)
 	{
 		ArrayList<boardvo> array=new ArrayList<boardvo>();
 		
-		String sql="select *from board where title like ?";
+		String sql="select *from board where title like ? order by id desc limit ?,?";
 		
 		try {	
 			conn=ds.getConnection();//ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
@@ -80,6 +108,8 @@ public class boarddao {
 
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,'%'+title+'%');
+			pstmt.setInt(2, firstrow-1);
+			pstmt.setInt(3, endrow-firstrow+1);
 			System.out.println(pstmt);
 			
 			rs=pstmt.executeQuery();
@@ -105,7 +135,7 @@ public class boarddao {
 		uphit(id);
 		
 		boardvo vo=null;
-		String sql="select *from board where id=?";
+		String sql="select *from board where id=? ";
 		
 		try {
 			
@@ -159,7 +189,7 @@ public class boarddao {
 			c.closesql(pstmt);
 		}
 	}
-	public ArrayList<boardvo> getborad(int fistrow,int endrow)
+	public ArrayList<boardvo> getborad(int firstrow,int endrow)
 	{
 		ArrayList<boardvo> array=new ArrayList<>();
 		
@@ -171,8 +201,8 @@ public class boarddao {
 			System.out.println(conn);
 
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, fistrow-1);
-			pstmt.setInt(2, endrow-fistrow+1);
+			pstmt.setInt(1, firstrow-1);
+			pstmt.setInt(2, endrow-firstrow+1);
 			System.out.println(pstmt);
 			rs=pstmt.executeQuery();
 			

@@ -27,7 +27,7 @@ session<br>
 							<th>작성일</th>
 							<th>조회수</th>
 							</tr>
-							<c:forEach var="arr" items="${array}">
+							<c:forEach var="arr" items="${array.getMessageList()}">
 							<tr>
 							<td>${arr.getBid()}</td>
 							<td>${arr.getBname()}</td>
@@ -37,5 +37,11 @@ session<br>
 							</tr>
 							</c:forEach>
 					</table>
+					<br>
+					<a href="#"><<</a> &nbsp; 
+					<c:forEach var="pagenum" begin="1" end="${array.getPageTotalCount()}">
+					<a href="ge.do?page=${pagenum}">${pagenum}</a> 
+					</c:forEach> 
+					&nbsp;<a href="#">>></a>
 </body>
 </html>
