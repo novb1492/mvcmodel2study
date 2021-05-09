@@ -1,8 +1,6 @@
-<%@page import="co.kr.model.boardvo"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
+        <%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %><!-- 형식 맞출때 쓰느 -->
 
@@ -13,14 +11,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-request<br>
-	<c:forEach var="arr2" items="${arrays2}">
-	${arr2.getUserid() }
-	${arr2.getUsername() }
-	${arr2.getUseremail() }
-	${arr2.getUsercreated() }
-	</c:forEach>
-	<br>
 session<br>
 	${uid }
 	${uname }
@@ -37,7 +27,7 @@ session<br>
 							<th>작성일</th>
 							<th>조회수</th>
 							</tr>
-							<c:forEach var="arr" items="${arrays}">
+							<c:forEach var="arr" items="${array}">
 							<tr>
 							<td>${arr.getBid()}</td>
 							<td>${arr.getBname()}</td>
@@ -47,10 +37,5 @@ session<br>
 							</tr>
 							</c:forEach>
 					</table>
-					<br>
-<form action="/test/search.do">
-검색 <input type="text" name="title" placeholder="제목을 입력해주세요"><input type="submit" value="검색">
-</form>
-
 </body>
 </html>

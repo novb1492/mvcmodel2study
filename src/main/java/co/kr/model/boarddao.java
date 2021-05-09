@@ -40,6 +40,38 @@ public class boarddao {
 		return dao;
 	}
 	
+	public ArrayList<boardvo> search(String title)
+	{
+		ArrayList<boardvo> array=new ArrayList<boardvo>();
+		
+		String sql="select *from board where title like ?";
+		
+		try {	
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,'%'+title+'%');
+			System.out.println(pstmt);
+			
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				boardvo vo= new boardvo(rs.getInt("id"), rs.getString("name"), rs.getString("title"), rs.getString("content"),rs.getTimestamp("date"),rs.getInt("hit"));	
+				array.add(vo);
+			}		
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
+		}
+
+		return array;
+	}
 	public boardvo getarticle(String id)
 	{
 		uphit(id);

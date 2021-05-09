@@ -12,6 +12,7 @@ import co.kr.model.boardvo;
 import co.kr.service.boardlistservice;
 import co.kr.service.boardservice;
 import co.kr.service.boardwriteservice;
+import co.kr.service.searchservice;
 import co.kr.service.viewservice;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -104,6 +105,12 @@ public class frontcontroller extends HttpServlet {
 			viewpage="board_list.jsp";
 			
 		}
+		else if(uri.equals("/test/search.do"))
+		{
+			sv=new searchservice();
+			sv.execute(request, response);
+			viewpage="search.jsp";
+		}
 		else if(uri.equals("/test/write.do"))
 		{
 			System.out.println("占쌜억옙占쏙옙 占쏙옙占쏙옙");	
@@ -123,7 +130,6 @@ public class frontcontroller extends HttpServlet {
 			System.out.println("占쌉시깍옙 占쏙옙占쏙옙");
 			sv=new viewservice();
 			sv.execute(request, response);
-		
 			viewpage="content.jsp";
 		}
 		//forward占쏙옙 占싱뤄옙占쏙옙
