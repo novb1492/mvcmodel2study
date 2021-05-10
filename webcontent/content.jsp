@@ -43,10 +43,16 @@
 		</c:otherwise>
 </c:choose>
 <br>
-	<c:forEach var="arr" items="${array}">			
-		${arr.getComment()}<br>
+	<c:forEach var="arr" items="${array.getCommentList()}">			
+		작성자:${arr.getUid()}<br>
+		내용:${arr.getComment()}<br>
 	</c:forEach>
 <br>
+	<c:forEach var="arr2" begin="1" end="${array.getCommentTotalCount()}">
+					<a href="content.do?page=${arr2}">${arr2}</a> 
+		</c:forEach> 
+					&nbsp;<a href="#">>></a>
+	<br>
 <a href="/test/ge.do">목록으로돌아가기</a>
 </body>
 </html>

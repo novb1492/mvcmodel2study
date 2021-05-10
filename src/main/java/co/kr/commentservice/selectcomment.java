@@ -11,9 +11,7 @@ public class selectcomment implements icommentservice {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		commentbao dao=commentbao.getinstance();
-		ArrayList<commentvo>array=dao.select(Integer.parseInt(request.getParameter("id")));
-		request.setAttribute("array", array);
+		
 
 	}
 

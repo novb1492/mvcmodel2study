@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import co.kr.comment.commentbao;
 import co.kr.comment.commentvo;
+import co.kr.commentservice.commentpagingservice;
 import co.kr.commentservice.icommentservice;
 import co.kr.commentservice.insertcomment;
 import co.kr.commentservice.selectcomment;
@@ -127,7 +128,7 @@ public class frontcontroller extends HttpServlet {
 			sv=new viewservice();
 			sv.execute(request, response);
 			
-			ic= new selectcomment();
+			ic= new commentpagingservice();
 			ic.execute(request, response);
 			viewpage="content.jsp";
 		}

@@ -9,9 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import co.kr.member.close;
-import co.kr.member.memberdao;
-import co.kr.model.boardvo;
+import co.kr.utill.utill;
 
 public class commentbao {
 
@@ -19,7 +17,7 @@ public class commentbao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private	ResultSet rs;
-	private close c=new close();
+	private utill u=new utill();
 	
 	private commentbao()
 	{
@@ -43,6 +41,37 @@ public class commentbao {
 		}
 		return dao;
 	}
+	
+	public int selecttotalcount(int bid)
+	{
+		String sql="select count(*) from comment where bid = ?";
+		int n=0;
+		
+		try {	
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+			System.out.println(pstmt);
+			
+			rs=pstmt.executeQuery();
+			rs.next();
+			n=rs.getInt(1);///���� ������ �������¹��̳� �������� sql�� �����ϱ���
+			System.out.println("totalboard"+rs.getInt(1));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			utill.close(conn);
+			utill.close(pstmt);
+			utill.close(rs);
+		}
+
+		return n;
+	}
+	
 	public void insertcomment(int bid ,String uid,String comment)
 	{
 		 String sql="insert into comment(bid,uid,comment)values(?,?,?)";
@@ -71,18 +100,18 @@ public class commentbao {
 				e.printStackTrace();
 			}
 			finally {
-				c.closesql(conn);
-				c.closesql(pstmt);
+				utill.close(conn);
+				utill.close(pstmt);
 	
 			}
 
 		 
 	}
-	public ArrayList<commentvo> select(int bid)
+	public ArrayList<commentvo> selectcomment(int bid ,int firstrow,int endrow)
 	{
 		ArrayList<commentvo>array=new ArrayList<commentvo>();
 		
-		String sql="select * from comment where bid = ?  ";
+		String sql="select * from comment where bid = ? order by cid desc limit ?,?";
 		
 		try {	
 			conn=ds.getConnection();//�����ͺ��̽� ����
@@ -90,12 +119,12 @@ public class commentbao {
 
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,bid);
-			//pstmt.setInt(2, firstrow-1);
-			//pstmt.setInt(3, endrow-firstrow+1);
+			pstmt.setInt(2, firstrow-1);
+			pstmt.setInt(3, endrow-firstrow+1);
 			System.out.println(pstmt);
 			
 			rs=pstmt.executeQuery();
-			if(rs.next())
+			while(rs.next())
 			{
 				commentvo vo= new commentvo(rs.getInt("bid"),rs.getString("uid"),rs.getString("comment"),rs.getTimestamp("created"));	
 				array.add(vo);
@@ -106,9 +135,9 @@ public class commentbao {
 			e.printStackTrace();
 		}
 		finally {
-			c.closesql(conn);
-			c.closesql(pstmt);
-			c.closesql(rs);
+			utill.close(conn);
+			utill.close(pstmt);
+			utill.close(rs);
 		}
 
 		return array;
