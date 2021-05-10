@@ -5,10 +5,6 @@ package co.kr.frontcontroller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.mysql.cj.Session;
-
-import co.kr.model.boarddao;
-import co.kr.model.boardvo;
 import co.kr.service.boardlistservice;
 import co.kr.service.boardservice;
 import co.kr.service.boardwriteservice;
@@ -20,8 +16,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import co.kr.member.*;
+import co.kr.comment.commentbao;
+import co.kr.comment.commentvo;
+import co.kr.commentservice.icommentservice;
+import co.kr.commentservice.insertcomment;
+import co.kr.commentservice.selectcomment;
 import co.kr.memberservice.*;
 
 
@@ -59,6 +58,7 @@ public class frontcontroller extends HttpServlet {
 		String uri=request.getRequestURI();
 		String viewpage=null;
 		boardservice sv=null;
+		icommentservice ic=null;
 		imemberservice ac=null;
 		
 		System.out.println("uri"+uri);
@@ -126,7 +126,17 @@ public class frontcontroller extends HttpServlet {
 			System.out.println("占쌉시깍옙 占쏙옙占쏙옙");
 			sv=new viewservice();
 			sv.execute(request, response);
+			
+			ic= new selectcomment();
+			ic.execute(request, response);
 			viewpage="content.jsp";
+		}
+		else if(uri.equals("/test/comment.do"))
+		{
+			ic=new insertcomment();
+			ic.execute(request, response);
+			viewpage="content.do?id="+request.getParameter("id");
+			System.out.println(viewpage);
 		}
 		//forward占쏙옙 占싱뤄옙占쏙옙
 		//占쏙옙占쏙옙  占싱몌옙占쏙옙 test占쏙옙占쏙옙 占쌓뤄옙占쏙옙 占쏙옙占쏙옙占� 占쌕울옙琯占� 占실면서 mvcmodel2 占쏙옙占쏙옙占쏙옙 占쌕뀐옙 占쌓뤄옙占쏙옙 test占쏙옙 占쌔억옙占쏙옙

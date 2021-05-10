@@ -39,7 +39,6 @@ public class boarddao {
 		}
 		return dao;
 	}
-	
 	public int selecttotalcount(String title)
 	{
 		String sql="select count(*) from board where title like ?";
@@ -54,7 +53,7 @@ public class boarddao {
 			
 			rs=pstmt.executeQuery();
 			rs.next();
-			n=rs.getInt(1);///¿­ÀÇ µ¥ÀÌÅÍ °¡Á®¿À´Â¹ýÀÌ³× »ý°¢º¸´Ù sqlµµ º¹ÀâÇÏ±¸³ª
+			n=rs.getInt(1);///ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½
 			System.out.println("totalboard"+rs.getInt(1));
 			
 		} catch (Exception e) {
@@ -81,7 +80,7 @@ public class boarddao {
 			
 			rs=pstmt.executeQuery();
 			rs.next();
-			n=rs.getInt(1);///¿­ÀÇ µ¥ÀÌÅÍ °¡Á®¿À´Â¹ýÀÌ³× »ý°¢º¸´Ù sqlµµ º¹ÀâÇÏ±¸³ª
+			n=rs.getInt(1);///ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¹ï¿½ï¿½Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sqlï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½
 			System.out.println("totalboard"+rs.getInt(1));
 			
 		} catch (Exception e) {

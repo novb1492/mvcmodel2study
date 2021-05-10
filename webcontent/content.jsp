@@ -1,3 +1,5 @@
+<%@page import="co.kr.comment.commentvo"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%-- 페이지 안에서 JSTL태그를 사용하려면 디렉티브를 통해 taglib선언을 해야 합니다. --%>
@@ -22,7 +24,29 @@
 <a href="/test/updatearticle.do">수정</a> &nbsp; <a href="/test/delete.do">삭제</a>
 <br>
 </c:if>
-
+<br>
+댓글
+<br>
+<c:choose>
+	<c:when test="${uid!=null }">
+	<form action="/test/comment.do" method="post">
+	작성자:${uid}<br>
+	<input type="text" name="comment" placeholder="댓글쓰기">
+	<input type="hidden" name="bid" value="${content.getBid()}">
+	<input type="hidden" name="uid" value="${uid}">
+	<input type="hidden" name="id" value="${content.getBid()}">
+	<input type="submit" value="작성완료">
+	</form>
+	</c:when>
+		<c:otherwise>
+		댓글을 입력하려면 로그인 해 주세요
+		</c:otherwise>
+</c:choose>
+<br>
+	<c:forEach var="arr" items="${array}">			
+		${arr.getComment()}<br>
+	</c:forEach>
+<br>
 <a href="/test/ge.do">목록으로돌아가기</a>
 </body>
 </html>
