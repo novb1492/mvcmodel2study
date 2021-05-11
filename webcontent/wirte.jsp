@@ -23,6 +23,7 @@
 <br>
 내용:<br>
 <textarea rows="5" cols="10" name="bcontent"></textarea>
+<input type="hidden" name="bname" value="${uid }">
 <input type="submit">
 </form>
 <a href="/test/ge.do">취소</a>

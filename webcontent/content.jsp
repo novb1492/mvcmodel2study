@@ -26,13 +26,7 @@
 <c:if test="${uid==content.getBname()}">
 
 <a href="/test/updatecontent.do?bid=${content.getBid()}&btitle=${content.getBtitle()}&bcontent=${content.getBcontent()}">수정</a>
-
-
-
-<form action="/test/deletecontent.do" method="post">
-<input type="submit" value="삭제">
-<input type="hidden" name="bid" value="${content.getBid()}">
-</form>
+<a href="/test/deletecontent.do?bid=${content.getBid()}">삭제</a>
 
 <br>
 
