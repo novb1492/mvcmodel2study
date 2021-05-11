@@ -31,7 +31,7 @@ public class commentpagingservice implements icommentservice {
 		int totalcomment=dao.selecttotalcount(bid);
 		ArrayList<commentvo>array=null;
 		int firstrow=0,endrow=0;
-		
+		System.out.println("totalcomment"+totalcomment);
 		if(totalcomment>0)
 		{
 			firstrow=(currentpagenum-1)*commentcount+1;
