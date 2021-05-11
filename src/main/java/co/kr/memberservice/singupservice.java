@@ -7,11 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 public class singupservice implements imemberservice {
 
 	@Override
-	public int execute(HttpServletRequest request, HttpServletResponse response) {
+	public boolean execute3(HttpServletRequest request, HttpServletResponse response) {
 		
 		System.out.println("intosingup");
 		memberdao dao=memberdao.getinstance();
-		int check=dao.singup(request.getParameter("id"),request.getParameter("pwd"),request.getParameter("name"),request.getParameter("email"));
+		boolean check=dao.singup(request.getParameter("id"),request.getParameter("pwd"),request.getParameter("name"),request.getParameter("email"));
 		return check;
 	}
 
@@ -20,5 +20,12 @@ public class singupservice implements imemberservice {
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public int execute(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

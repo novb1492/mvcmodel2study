@@ -43,6 +43,21 @@ public class utill {
 		}
 	}
 	
+	public static boolean check(int check)
+	{
+		boolean tf=false;
+		
+		if(check==1)
+		{
+			tf=true;
+		}
+		else 
+		{
+			tf=false;
+		}
+		return tf;
+	}
+	
 
 
 }

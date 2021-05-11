@@ -9,8 +9,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import co.kr.model.boarddao;
-import co.kr.member.membervo;
 import co.kr.utill.utill;
 
 public class memberdao {
@@ -19,7 +17,7 @@ public class memberdao {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private	ResultSet rs;
-	private close c=new close();
+
 	private memberdao()
 	{
 		try{
@@ -42,48 +40,65 @@ public class memberdao {
 		}
 		return dao;
 	}
-	public int singup(String id,String pwd ,String name ,String email)
+	
+	public void deletemember(String id)
 	{
-		String sql="insert into members(id,pwd,name,email)values(?,?,?,?)";
+		String sql="delete from members where id=?";
 		
-		int check=0;
-		try {
-			
-			conn=ds.getConnection();
-			System.out.println(conn+"접속완료 로그인");
-			
-			pstmt=conn.prepareStatement(sql);
+		try {	
+			pstmt=intodatabase(sql);
 			pstmt.setString(1, id);
-			pstmt.setString(2, pwd);
-			pstmt.setString(3, name);
-			pstmt.setString(4, email);
-			System.out.println(pstmt+"로그인");
+			System.out.println(pstmt+"deletemembers");
 		
-			check=pstmt.executeUpdate();	
+			pstmt.executeUpdate();	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
-			c.closesql(conn);
-			c.closesql(pstmt);
+			utill.close(conn);
+			utill.close(pstmt);
 		}
-		return check;
+		
+	}
+	public boolean singup(String id,String pwd ,String name ,String email)
+	{
+		String sql="insert into members(id,pwd,name,email)values(?,?,?,?)";
+		
+		int check=0;
+		boolean tf=false;
+		try {
+			
+			pstmt=intodatabase(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+			pstmt.setString(3, name);
+			pstmt.setString(4, email);
+			System.out.println(pstmt+"singupsql");
+		
+			check=pstmt.executeUpdate();	
+			tf=utill.check(check);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			utill.close(conn);
+			utill.close(pstmt);
+		}
+		return tf;
 	}
 	public membervo allselect2(String userid)
 	{
+		System.out.println("try select all "+userid);
+		
 		String sql="select * from members where id=?";
-
-		System.out.println(userid);
 		membervo vo=null;
 		try {
 			
-			conn=ds.getConnection();
-			System.out.println(conn+"접속완료 로그인");
-			
-			pstmt=conn.prepareStatement(sql);
+			pstmt=intodatabase(sql);
 			pstmt.setString(1, userid);
-			System.out.println(pstmt+"로그인");
+			System.out.println(pstmt+"get all userinfor");
 			
 			rs=pstmt.executeQuery();
 			if(rs.next())
@@ -97,26 +112,21 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-			c.closesql(conn);
-			c.closesql(pstmt);
-			c.closesql(rs);
+			utill.close(conn);
+			utill.close(pstmt);
+			utill.close(rs);
 		}
 		return vo;
 	}
 	public ArrayList<membervo> allselect(String userid)
 	{
 		String sql="select * from members where id=?";
-		conn= null;
-		pstmt=null;
-		rs=null;
-		System.out.println(userid);
+		System.out.println("select all infor at "+userid);
 		ArrayList<membervo>array=new ArrayList<membervo>();
+		
 		try {
 			
-			conn=ds.getConnection();
-			System.out.println(conn+"접속완료 로그인");
-			
-			pstmt=conn.prepareStatement(sql);
+			pstmt=intodatabase(sql);
 			pstmt.setString(1, userid);
 			System.out.println(pstmt+"로그인");
 			
@@ -132,26 +142,20 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-			c.closesql(conn);
-			c.closesql(pstmt);
+			utill.close(conn);
+			utill.close(pstmt);
 		}
 		return array;
 	}
 	public int login(String userid,String userpwd)
 	{
-
+		System.out.println("try login id"+userid);
 		String sql="select pwd from members where id=?";
-		conn= null;
-		pstmt=null;
 		rs=null;
-		System.out.println(userid);
+		
 		int check=0;
 		try {
-			
-			conn=ds.getConnection();
-			System.out.println(conn+"접속완료 로그인");
-			
-			pstmt=conn.prepareStatement(sql);
+			pstmt=intodatabase(sql);
 			pstmt.setString(1, userid);
 			System.out.println(pstmt+"로그인");
 			
@@ -177,11 +181,25 @@ public class memberdao {
 			e.printStackTrace();
 		}
 		finally {
-			c.closesql(conn);
-			c.closesql(pstmt);
-			c.closesql(rs);
+			utill.close(conn);
+			utill.close(pstmt);
+			utill.close(rs);
 		}
 		return check;
+	}
+	
+	private PreparedStatement  intodatabase(String sql)
+	{
+		
+		try {	
+			conn=ds.getConnection();
+			System.out.println(conn+"접속완료");
+			pstmt=conn.prepareStatement(sql);
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pstmt;
 	}
 	
 	

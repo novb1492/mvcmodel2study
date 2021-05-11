@@ -29,6 +29,12 @@ public class loginservice implements imemberservice  {
 		session.setAttribute("ucreated",vo.getUsercreated()); 
 		
 	}
+
+	@Override
+	public boolean execute3(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 	
 

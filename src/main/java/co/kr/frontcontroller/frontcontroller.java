@@ -92,7 +92,7 @@ public class frontcontroller extends HttpServlet {
 		else if(uri.equals("/test/singupprocess.do"))
 		{
 			im= new singupservice();
-			int check=im.execute(request, response);
+			boolean check=im.execute3(request, response);
 			uri2[0]="login.do";
 			uri2[1]="singup.do";
 			viewpage=ch(check, uri2);
@@ -172,10 +172,10 @@ public class frontcontroller extends HttpServlet {
 		dp.forward(request, response);
 		
 	}
-	private String ch (int check,String[] uri2) {
+	private String ch (Boolean check,String[] uri2) {
 		
 		String u=null;
-		if(check==1)
+		if(check==true)
 		{
 			u=uri2[0];
 		}
