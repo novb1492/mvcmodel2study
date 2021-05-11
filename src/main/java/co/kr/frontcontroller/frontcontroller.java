@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import co.kr.service.boardlistservice;
 import co.kr.service.boardservice;
 import co.kr.service.boardwriteservice;
+import co.kr.service.deletecontentservice;
 import co.kr.service.searchservice;
+import co.kr.service.updatecontentprocess;
+import co.kr.service.updatecontentservice;
 import co.kr.service.viewservice;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -131,6 +134,24 @@ public class frontcontroller extends HttpServlet {
 			ic= new commentpagingservice();
 			ic.execute(request, response);
 			viewpage="content.jsp";
+		}
+		else if(uri.equals("/test/deletecontent.do"))
+		{
+			sv=new deletecontentservice();
+			sv.execute(request, response);
+			viewpage="ge.do";
+		}
+		else if(uri.equals("/test/updatecontent.do"))
+		{
+			sv=new updatecontentservice();
+			sv.execute(request, response);
+			viewpage="updatecontent.jsp";
+		}
+		else if(uri.equals("/test/updatecontentprocess.do"))
+		{
+			sv= new updatecontentprocess();
+			sv.execute(request, response);
+			viewpage="content.do?id="+request.getParameter("bid");
 		}
 		else if(uri.equals("/test/comment.do"))
 		{

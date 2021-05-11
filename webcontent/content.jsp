@@ -14,19 +14,33 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <br>
 글순서:${content.getBid()}<br>
 작성자 :${content.getBname()}<br>
 글제목 :${content.getBtitle() }<br>
 글내용 :${content.getBcontent() }<br>
-작성일자 :${content.getBdate() } 조회수:${content.getBhit() }<br>
+작성일자 :${content.getBdate() } 조회수:${content.getBhit() }
+<br>
+
 <c:if test="${uid==content.getBname()}">
-<a href="/test/updatearticle.do">수정</a> &nbsp; <a href="/test/delete.do">삭제</a>
+
+<a href="/test/updatecontent.do?bid=${content.getBid()}&btitle=${content.getBtitle()}&bcontent=${content.getBcontent()}">수정</a>
+
+
+
+<form action="/test/deletecontent.do" method="post">
+<input type="submit" value="삭제">
+<input type="hidden" name="bid" value="${content.getBid()}">
+</form>
+
 <br>
+
 </c:if>
-<br>
+
 댓글
 <br>
+
 <c:choose>
 	<c:when test="${uid!=null }">
 	<form action="/test/comment.do" method="post">
@@ -43,16 +57,19 @@
 		</c:otherwise>
 </c:choose>
 <br>
+
 	<c:forEach var="arr" items="${array.getCommentList()}">			
 		작성자:${arr.getUid()}<br>
 		내용:${arr.getComment()}<br>
 	</c:forEach>
 <br>
+
 	<c:forEach var="arr2" begin="1" end="${array.getCommentTotalCount()}">
 					<a href="content.do?page=${arr2}">${arr2}</a> 
 		</c:forEach> 
 					&nbsp;<a href="#">>></a>
 	<br>
+	
 <a href="/test/ge.do">목록으로돌아가기</a>
 </body>
 </html>

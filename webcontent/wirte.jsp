@@ -17,11 +17,11 @@
 </head>
 <body>
 <form action="/test/writeprocess.do" method="post">
-작성자<input type="text" name="bname" value="${uid }" readonly="readonly">
+작성자:${uid }
 <br>
-제목<input type="text" name="btitle">
+제목:<input type="text" name="btitle">
 <br>
-내용<br>
+내용:<br>
 <textarea rows="5" cols="10" name="bcontent"></textarea>
 <input type="submit">
 </form>

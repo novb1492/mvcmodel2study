@@ -33,11 +33,66 @@ public class boarddao {
 	
 	public static boarddao getinstance()
 	{
-		if(dao!=null)
+		if(dao==null)
 		{
 			dao=new boarddao();
 		}
 		return dao;
+	}
+	
+	public void updatecontentprocess(int bid,String title,String content)
+	{
+		String sql="update board set title=?,content=? where id=?";
+		
+		int n=0;
+		
+		try {	
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, bid);
+			System.out.println(pstmt);
+			
+			n=pstmt.executeUpdate();
+			check(n);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
+		}
+	}
+	public void deletecontent(int bid)
+	{
+		String sql="delete from board where id=?";
+		
+		int n=0;
+		
+		try {	
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+			System.out.println(pstmt);
+			
+			n=pstmt.executeUpdate();
+			check(n);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
+			c.closesql(rs);
+		}
 	}
 	public int selecttotalcount(String title)
 	{
