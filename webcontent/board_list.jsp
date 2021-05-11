@@ -27,6 +27,9 @@ session<br>
 	${uemail }
 	${ucreated }
 	<br>
+	<c:if test="${uid!=null }">
+	<a href="logout.do?&uid=${uid}">로그아웃</a>
+	</c:if>
 <a href="/test/write.do">글쓰기</a>
 <br>
 					<table>
