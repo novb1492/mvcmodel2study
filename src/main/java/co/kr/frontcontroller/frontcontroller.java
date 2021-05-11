@@ -63,7 +63,7 @@ public class frontcontroller extends HttpServlet {
 		String viewpage=null;
 		boardservice sv=null;
 		icommentservice ic=null;
-		imemberservice ac=null;
+		imemberservice im=null;
 		
 		System.out.println("uri"+uri);
 		if(uri.equals("/test/login.do"))
@@ -72,12 +72,12 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/loginprocess.do"))
 		{
-			ac=new loginservice();
-			int check=ac.execute(request, response);
+			im=new loginservice();
+			int check=im.execute(request, response);
 			if(check==1)
 			{
 
-				ac.execute2(request, response); //set session 	
+				im.execute2(request, response); //set session 	
 				viewpage="ge.do";
 			}
 			else
@@ -91,8 +91,8 @@ public class frontcontroller extends HttpServlet {
 		}
 		else if(uri.equals("/test/singupprocess.do"))
 		{
-			ac= new singupservice();
-			int check=ac.execute(request, response);
+			im= new singupservice();
+			int check=im.execute(request, response);
 			uri2[0]="login.do";
 			uri2[1]="singup.do";
 			viewpage=ch(check, uri2);
@@ -159,6 +159,12 @@ public class frontcontroller extends HttpServlet {
 			ic.execute(request, response);
 			viewpage="content.do?id="+request.getParameter("id");
 			System.out.println(viewpage);
+		}
+		else if(uri.equals("/test/logout.do"))
+		{
+			im=new logoutservice();
+			im.execute2(request, response);
+			viewpage="ge.do";
 		}
 		//forward占쏙옙 占싱뤄옙占쏙옙
 		//占쏙옙占쏙옙  占싱몌옙占쏙옙 test占쏙옙占쏙옙 占쌓뤄옙占쏙옙 占쏙옙占쏙옙占� 占쌕울옙琯占� 占실면서 mvcmodel2 占쏙옙占쏙옙占쏙옙 占쌕뀐옙 占쌓뤄옙占쏙옙 test占쏙옙 占쌔억옙占쏙옙
