@@ -14,7 +14,7 @@ public class commentpagingservice implements icommentservice {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String strpage=request.getParameter("page");
-		System.out.println("1");
+		System.out.println("strpage"+strpage);
 		int currentpage=1;
 		if(strpage!=null)
 		{
@@ -24,16 +24,15 @@ public class commentpagingservice implements icommentservice {
 		request.setAttribute("array", comments);//占쌓뤄옙 占싱뤄옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙占� 占싫그뤄옙占쏙옙 큰占싹놂옙占쏙옙20210507
 
 	}
-	private cpagingservice getcomments(int currentpagenum,int bid)
+	private cpagingservice getcomments(int currentpagenum,int bid )
 	{
 		cpagingservice arraycomment=null;
 		commentbao dao=commentbao.getinstance();
-		int totalboard=dao.selecttotalcount(bid);
-		
+		int totalcomment=dao.selecttotalcount(bid);
 		ArrayList<commentvo>array=null;
 		int firstrow=0,endrow=0;
 		
-		if(totalboard>0)
+		if(totalcomment>0)
 		{
 			firstrow=(currentpagenum-1)*commentcount+1;
 			endrow=firstrow+commentcount-1;
@@ -43,7 +42,8 @@ public class commentpagingservice implements icommentservice {
 		{
 			currentpagenum=0;
 		}
-		arraycomment=new cpagingservice(array, endrow, currentpagenum, totalboard, firstrow, endrow);
+		System.out.println("firstrow"+firstrow+"endrow"+endrow);
+		arraycomment=new cpagingservice(array, totalcomment, currentpagenum,commentcount, firstrow, endrow);
 		
 		return arraycomment;
 	}

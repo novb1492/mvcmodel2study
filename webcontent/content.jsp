@@ -58,8 +58,8 @@
 	</c:forEach>
 <br>
 
-	<c:forEach var="arr2" begin="1" end="${array.getCommentTotalCount()}">
-					<a href="content.do?page=${arr2}">${arr2}</a> 
+	<c:forEach var="arr2" begin="1" end="${array.getPageTotalCount()}">
+					<a href="content.do?bid=${content.getBid()}&page=${arr2}">${arr2}</a> 
 		</c:forEach> 
 					&nbsp;<a href="#">>></a>
 	<br>

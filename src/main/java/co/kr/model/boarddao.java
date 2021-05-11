@@ -85,13 +85,39 @@ public class boarddao {
 			n=pstmt.executeUpdate();
 			check(n);
 			
+			deletecommenttogether(bid);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		finally {
 			c.closesql(conn);
 			c.closesql(pstmt);
-			c.closesql(rs);
+		}
+	}
+	private void deletecommenttogether(int bid)
+	{
+		String sql="delete from comment where bid=?";
+		
+		int n=0;
+		
+		try {	
+			conn=ds.getConnection();//�����ͺ��̽� ����
+			System.out.println(conn);
+
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, bid);
+			System.out.println(pstmt);
+			
+			n=pstmt.executeUpdate();
+			check(n);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			c.closesql(conn);
+			c.closesql(pstmt);
 		}
 	}
 	public int selecttotalcount(String title)
